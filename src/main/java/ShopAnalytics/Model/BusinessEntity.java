@@ -19,11 +19,11 @@ import javax.validation.constraints.NotNull;
 public class BusinessEntity {
 
     @Id
-    @Column(name = "inn", length = 10)
+    @Column(name = "inn", length = 11)
     int inn;
 
     @NotNull
-    @Column(name = "giro", length = 10)
+    @Column(name = "giro", length = 11)
     int giro;
 
     String email;

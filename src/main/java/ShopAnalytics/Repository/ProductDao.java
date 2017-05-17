@@ -13,4 +13,6 @@ import java.util.List;
 @Transactional
 public interface ProductDao extends CrudRepository<Product, String> {
 
+    Product findByNameIgnoreCase(String productName);
+
 }

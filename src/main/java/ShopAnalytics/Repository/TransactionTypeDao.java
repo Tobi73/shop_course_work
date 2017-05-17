@@ -10,4 +10,7 @@ import javax.transaction.Transactional;
  */
 @Transactional
 public interface TransactionTypeDao extends CrudRepository<TransactionType, Long> {
+
+    TransactionType findByName(String name);
+
 }
