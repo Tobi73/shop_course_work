@@ -20,6 +20,7 @@ public class AnalyticsData {
     @OneToOne
     private BusinessEntity businessEntity;
 
+
     private int quantity;
 
     @OneToOne
