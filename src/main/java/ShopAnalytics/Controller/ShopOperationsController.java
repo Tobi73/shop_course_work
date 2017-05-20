@@ -2,7 +2,6 @@ package ShopAnalytics.Controller;
 
 import ShopAnalytics.App;
 import ShopAnalytics.BLL.OperationHandler;
-import ShopAnalytics.Repository.ProductDao;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,27 +9,22 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by gman0_000 on 26.04.2017.
  */
 
-@RestController(value= SellOperationController.BASE_PATH)
-@Api(value = "sell")
-public class SellOperationController {
-    public final static String BASE_PATH = "/" + App.ROOT_PATH + "/" + "sell";
+@RestController(value= ShopOperationsController.BASE_PATH)
+@Api(value = "shop-operations")
+public class ShopOperationsController {
+    public final static String BASE_PATH = "/" + App.ROOT_PATH + "/" + "shop-operations";
 
     @Autowired
     private OperationHandler operationHandler = new OperationHandler();
-    @Autowired
-    private ProductDao products;
 
 
-    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/{productId}&{customerINN}&{userId}")
+    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/sell/{productId}&{customerINN}&{userId}")
     @ApiOperation(value = "Sell product to customer by INN")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
@@ -39,27 +33,32 @@ public class SellOperationController {
     public ResponseEntity<?> sellProduct(@PathVariable("productId") String productId,
                             @PathVariable("customerINN") int inn,
                             @PathVariable("userId") long userId) {
-        try{
+        try {
             operationHandler.sellProduct(productId, inn, userId);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/")
-    @ApiOperation(value = "Show products")
+    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/purchase/{productId}&{customerINN}&{userId}")
+    @ApiOperation(value = "Purchase product from business partner")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> showProduct() {
+    public ResponseEntity<?> purchaseProduct(@PathVariable("productId") String productId,
+                                         @PathVariable("customerINN") int inn,
+                                         @PathVariable("userId") long userId) {
         try{
-            return new ResponseEntity(products.findAll(),HttpStatus.OK);
+            operationHandler.purchaseProduct(productId, inn, userId);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }

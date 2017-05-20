@@ -1,0 +1,462 @@
+databaseChangeLog:
+- changeSet:
+    id: 1495228812282-1
+    author: gman0_000 (generated)
+    changes:
+    - createSequence:
+        sequenceName: analytics_seq
+- changeSet:
+    id: 1495228812282-2
+    author: gman0_000 (generated)
+    changes:
+    - createSequence:
+        sequenceName: role_seq
+- changeSet:
+    id: 1495228812282-3
+    author: gman0_000 (generated)
+    changes:
+    - createSequence:
+        sequenceName: trans_seq
+- changeSet:
+    id: 1495228812282-4
+    author: gman0_000 (generated)
+    changes:
+    - createSequence:
+        sequenceName: trans_type_seq
+- changeSet:
+    id: 1495228812282-5
+    author: gman0_000 (generated)
+    changes:
+    - createSequence:
+        sequenceName: user_seq
+- changeSet:
+    id: 1495228812282-6
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: quantity
+            type: INT
+        - column:
+            name: business_entity_inn
+            type: INT
+        - column:
+            name: product_id
+            type: VARCHAR(255)
+        tableName: analytics_data
+- changeSet:
+    id: 1495228812282-7
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: inn
+            type: INT
+        - column:
+            name: address
+            type: VARCHAR(255)
+        - column:
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: giro
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: phone
+            type: VARCHAR(255)
+        tableName: business_entity
+- changeSet:
+    id: 1495228812282-8
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: quantity
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: sell_price
+            type: INT
+        tableName: product
+- changeSet:
+    id: 1495228812282-9
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        tableName: role
+- changeSet:
+    id: 1495228812282-10
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: login
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(255)
+        - column:
+            name: role_id
+            type: BIGINT
+        tableName: shop_user
+- changeSet:
+    id: 1495228812282-11
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: date
+            type: date
+        - column:
+            constraints:
+              nullable: false
+            name: price
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: business_entity_inn
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: product_id
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: transaction_type_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: BIGINT
+        tableName: transaction
+- changeSet:
+    id: 1495228812282-12
+    author: gman0_000 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        tableName: transaction_type
+- changeSet:
+    id: 1495228812282-13
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: analytics_data_pkey
+        tableName: analytics_data
+- changeSet:
+    id: 1495228812282-14
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: inn
+        constraintName: business_entity_pkey
+        tableName: business_entity
+- changeSet:
+    id: 1495228812282-15
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: product_pkey
+        tableName: product
+- changeSet:
+    id: 1495228812282-16
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: role_pkey
+        tableName: role
+- changeSet:
+    id: 1495228812282-17
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: shop_user_pkey
+        tableName: shop_user
+- changeSet:
+    id: 1495228812282-18
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: transaction_pkey
+        tableName: transaction
+- changeSet:
+    id: 1495228812282-19
+    author: gman0_000 (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: transaction_type_pkey
+        tableName: transaction_type
+- changeSet:
+    id: 1495228812282-20
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: product_id
+        baseTableName: transaction
+        constraintName: fk1bkeyn2xhcnk7jnxpj1xvjd5m
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: product
+- changeSet:
+    id: 1495228812282-21
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: product_id
+        baseTableName: analytics_data
+        constraintName: fk7dq9499k7gu49v6jwa38b6n68
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: product
+- changeSet:
+    id: 1495228812282-22
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_id
+        baseTableName: shop_user
+        constraintName: fkioieq6fcjl9ak3w4ekdjybpce
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: role
+- changeSet:
+    id: 1495228812282-23
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: transaction_type_id
+        baseTableName: transaction
+        constraintName: fknl0vpl01y6vu03hkpi4xupugo
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: transaction_type
+- changeSet:
+    id: 1495228812282-24
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: business_entity_inn
+        baseTableName: transaction
+        constraintName: fkqcve3ibbmyshffaxg8tn4v08c
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: inn
+        referencedTableName: business_entity
+- changeSet:
+    id: 1495228812282-25
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: transaction
+        constraintName: fksr4ykku3jk1eqxxc3xww0e24i
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: shop_user
+- changeSet:
+    id: 1495228812282-26
+    author: gman0_000 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: business_entity_inn
+        baseTableName: analytics_data
+        constraintName: fkx2nvytvn19u5810s8jysc073
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: inn
+        referencedTableName: business_entity
+- changeSet:
+    id: 1495228812282-27
+    validCheckSum: ANY
+    author: gman0_000 (generated)
+    changes:
+    - sql:
+          comment: Insert required triggers
+          endDelimiter: \nGO
+          splitStatements: true
+          sql: delete from  shop_user;
+               delete from transaction_type;
+               delete from role;
+               delete from business_entity;
+               delete from product;
+               alter sequence role_seq restart with 1;
+               alter sequence user_seq restart with 1;
+               alter sequence trans_type_seq restart with 1;
+
+               insert into role (id, name) values (nextval('role_seq'), 'admin');
+               insert into role (id, name) values (nextval('role_seq'), 'accountant');
+               insert into role (id, name) values (nextval('role_seq'), 'cashier');
+
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'accountant2', 'password', 2);
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'accountant3', 'password', 2);
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'accountant4', 'password', 2);
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'admin', 'password', 1);
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'cashier2', 'password', 3);
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'cashier3', 'password', 3);
+               insert into shop_user(id, login, password, role_id) values (nextval('user_seq'), 'cashier4', 'password', 3);
+
+               insert into business_entity(inn, address, email, giro, name, phone)
+                values (435432534, 'Ульяновск', 'email', 531254321, 'Company 1', '103252');
+                insert into business_entity(inn, address, email, giro, name, phone)
+                values (214432532, 'Ульяновск', 'email', 235254321, 'Company 2', '921329');
+                insert into business_entity(inn, address, email, giro, name, phone)
+                values (59243253, 'Ульяновск', 'email', 510254321, 'Company 3', '603534');
+                insert into business_entity(inn, address, email, giro, name, phone)
+                values (61543253, 'Самара', 'email', 640254321, 'Company 4', '473032');
+                insert into business_entity(inn, address, email, giro, name, phone)
+                values (34543253, 'Москва', 'email', 700254321, 'Company 5', '352432');
+                insert into business_entity(inn, address, email, giro, name, phone)
+                values (13243253, 'Казань', 'email', 924254321, 'Company 6', '321322');
+
+               insert into product(id, name, quantity, sell_price)
+               values ('FDS4321', 'Ноутбук', 5, 25000);
+               insert into product(id, name, quantity, sell_price)
+               values ('FS24321', 'Монопод', 5, 1500);
+               insert into product(id, name, quantity, sell_price)
+               values ('FG64321', 'Планшет', 5, 17000);
+               insert into product(id, name, quantity, sell_price)
+               values ('FO34321', 'Видеокарта', 5, 19000);
+               insert into product(id, name, quantity, sell_price)
+               values ('F324321', 'Чехол', 5, 1000);
+               insert into product(id, name, quantity, sell_price)
+               values ('FCC4321', 'Колонки', 5, 4500);
+               insert into product(id, name, quantity, sell_price)
+               values ('F5J4321', 'Наушники', 5, 2000);
+
+               insert into transaction_type (id, name) values (nextval('trans_type_seq'), 'buy');
+               insert into transaction_type (id, name) values (nextval('trans_type_seq'), 'sell');
+          stripComments: true
+- changeSet:
+    id: 1495228812282-28
+    validCheckSum: ANY
+    author: gman0_000 (generated)
+    changes:
+    - sql:
+          comment: Insert required triggers
+          endDelimiter: \nGO
+          splitStatements: true
+          sql:
+               CREATE OR REPLACE FUNCTION public.trg_set_new_product_quantity()
+                 RETURNS trigger LANGUAGE plpgsql VOLATILE COST 100 AS
+               $func$
+               BEGIN
+                  IF (SELECT c.name FROM transaction_type c WHERE c.id = NEW.transaction_type_id) ~ 'buy' THEN
+                     update product set quantity = quantity + 1 where id = NEW.product_id;
+                  END IF;
+                  IF (SELECT c.name FROM transaction_type c WHERE c.id = NEW.transaction_type_id) ~ 'sell' THEN
+                     RAISE NOTICE 'Is selling';
+                     IF (SELECT p.quantity FROM product p WHERE p.id = NEW.product_id) = 0 THEN
+                        RAISE NOTICE 'Raise exception';
+                        raise exception 'Insufficient amount of product ID';
+                     END IF;
+                     update product set quantity = quantity - 1 where id = NEW.product_id;
+                  END IF;
+                  RETURN NEW;
+               END;
+               $func$;
+
+               CREATE TRIGGER change_product_quantity
+               BEFORE INSERT ON transaction
+               FOR EACH ROW EXECUTE PROCEDURE trg_set_new_product_quantity();
+          stripComments: true
+

@@ -1,7 +1,9 @@
 package ShopAnalytics.Model;
 
+import javafx.util.Pair;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,16 +13,16 @@ import java.util.Map;
 @Data
 public class PriceCriteria {
 
-    private Map<Integer, Integer> priceCriteria;
+    private List<Pair<Integer, Integer>> priceCriteria;
     private Integer defaultPrice;
 
-    public PriceCriteria(Map<Integer, Integer> priceCriteria, Integer defaultPrice){
+    public PriceCriteria(List<Pair<Integer, Integer>> priceCriteria, Integer defaultPrice){
         this.priceCriteria = priceCriteria;
         this.defaultPrice = defaultPrice;
     }
 
     public boolean isPassingCriteria(int price){
-        for(Map.Entry<Integer, Integer> priceCriteriaUnit : priceCriteria.entrySet()){
+        for(Pair<Integer, Integer> priceCriteriaUnit : priceCriteria){
             if(price < priceCriteriaUnit.getKey()){
                 return true;
             }
@@ -29,7 +31,7 @@ public class PriceCriteria {
     }
 
     public int foundQuantity(int price){
-        for(Map.Entry<Integer, Integer> priceCriteriaUnit : priceCriteria.entrySet()){
+        for(Pair<Integer, Integer> priceCriteriaUnit : priceCriteria){
             if(price < priceCriteriaUnit.getKey()){
                 return priceCriteriaUnit.getValue();
             }

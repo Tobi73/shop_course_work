@@ -14,12 +14,11 @@ public class AnalyticsData {
 
     @Id
     @GeneratedValue(generator = "AnalyticsGen")
-    @SequenceGenerator(name = "AnalyticsGen", sequenceName = "analytics_seq", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "AnalyticsGen", sequenceName = "analytics_seq", allocationSize = 1)
     private long id;
 
     @OneToOne
     private BusinessEntity businessEntity;
-
 
     private int quantity;
 

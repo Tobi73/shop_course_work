@@ -32,15 +32,6 @@ public class DataAnalysis {
             if(!priceCriteria.isPassingCriteria(price)){
                 return new AnalyticsData(null, priceCriteria.getDefaultPrice(), foundProduct);
             }
-//            if(price < 5000){
-//                return new AnalyticsData(null, 10, foundProduct);
-//            }
-//            if(price >= 5000 && price < 10000){
-//                return new AnalyticsData(null, 5, foundProduct);
-//            }
-//            if (price >= 10000){
-//                return new AnalyticsData(null, 1, foundProduct);
-//            }
         }
         if(foundProduct != null){
             Pair<BusinessEntity, Integer> bestOption = determineBestBusinessPartner(foundTransactions);

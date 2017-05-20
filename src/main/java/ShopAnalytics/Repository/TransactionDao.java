@@ -8,12 +8,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Created by gman0_000 on 14.05.2017.
+ * Created by gman0_000 on 20.05.2017.
  */
-
 @Transactional
 public interface TransactionDao extends CrudRepository<Transaction, Long> {
-
     List<Transaction> findAllByProduct(Product product);
-
 }
