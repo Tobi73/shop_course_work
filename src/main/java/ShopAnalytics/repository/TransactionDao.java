@@ -1,7 +1,7 @@
-package ShopAnalytics.Repository;
+package ShopAnalytics.repository;
 
-import ShopAnalytics.Model.Product;
-import ShopAnalytics.Model.Transaction;
+import ShopAnalytics.model.Product;
+import ShopAnalytics.model.Transaction;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;

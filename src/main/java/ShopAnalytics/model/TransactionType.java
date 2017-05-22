@@ -1,4 +1,4 @@
-package ShopAnalytics.Model;
+package ShopAnalytics.model;
 
 import lombok.Data;
 

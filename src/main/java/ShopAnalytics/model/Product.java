@@ -1,4 +1,4 @@
-package ShopAnalytics.Model;
+package ShopAnalytics.model;
 
 import lombok.Data;
 import org.hibernate.annotations.Check;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Product {
 
     @Id
-    private String id;
+    private Long id;
 
     @NotNull
     private String name;
@@ -32,7 +32,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(String id, String name, int sellPrice){
+    public Product(Long id, String name, int sellPrice){
         this.id = id;
         this.name = name;
         this.quantity = 0;

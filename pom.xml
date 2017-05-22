@@ -23,13 +23,13 @@
     <pluginRepositories>
         <pluginRepository>
             <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
+            <url>https://repository.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
     <repositories>
         <repository>
             <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
+            <url>https://repository.spring.io/libs-release</url>
         </repository>
     </repositories>
 

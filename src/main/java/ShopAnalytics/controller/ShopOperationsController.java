@@ -1,7 +1,7 @@
-package ShopAnalytics.Controller;
+package ShopAnalytics.controller;
 
 import ShopAnalytics.App;
-import ShopAnalytics.BLL.OperationHandler;
+import ShopAnalytics.bll.OperationHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,8 +30,8 @@ public class ShopOperationsController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> sellProduct(@PathVariable("productId") String productId,
-                            @PathVariable("customerINN") int inn,
+    public ResponseEntity<?> sellProduct(@PathVariable("productId") Long productId,
+                            @PathVariable("customerINN") Long inn,
                             @PathVariable("userId") long userId) {
         try {
             operationHandler.sellProduct(productId, inn, userId);
@@ -48,8 +48,8 @@ public class ShopOperationsController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> purchaseProduct(@PathVariable("productId") String productId,
-                                         @PathVariable("customerINN") int inn,
+    public ResponseEntity<?> purchaseProduct(@PathVariable("productId") Long productId,
+                                         @PathVariable("customerINN") Long inn,
                                          @PathVariable("userId") long userId) {
         try{
             operationHandler.purchaseProduct(productId, inn, userId);
@@ -59,6 +59,5 @@ public class ShopOperationsController {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 }

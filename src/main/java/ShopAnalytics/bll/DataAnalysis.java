@@ -1,10 +1,11 @@
-package ShopAnalytics.BLL;
+package ShopAnalytics.bll;
 
-import ShopAnalytics.Model.*;
-import ShopAnalytics.Repository.ProductDao;
-import ShopAnalytics.Repository.TransactionDao;
+import ShopAnalytics.model.*;
+import ShopAnalytics.repository.ProductDao;
+import ShopAnalytics.repository.TransactionDao;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

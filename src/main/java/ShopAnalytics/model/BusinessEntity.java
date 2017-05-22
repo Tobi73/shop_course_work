@@ -1,7 +1,6 @@
-package ShopAnalytics.Model;
+package ShopAnalytics.model;
 
 import lombok.Data;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +19,7 @@ public class BusinessEntity {
 
     @Id
     @Column(name = "inn", length = 11)
-    int inn;
+    Long inn;
 
     @NotNull
     @Column(name = "giro", length = 11)
@@ -34,7 +33,7 @@ public class BusinessEntity {
 
     public BusinessEntity() {}
 
-    public BusinessEntity(int inn, int giro, String email, String name, String address, String phone){
+    public BusinessEntity(Long inn, int giro, String email, String name, String address, String phone){
         this.inn = inn;
         this.giro = giro;
         this.email = email;

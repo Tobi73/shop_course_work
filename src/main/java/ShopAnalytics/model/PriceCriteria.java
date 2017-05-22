@@ -1,10 +1,9 @@
-package ShopAnalytics.Model;
+package ShopAnalytics.model;
 
 import javafx.util.Pair;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by andreyzaytsev on 18.05.17.

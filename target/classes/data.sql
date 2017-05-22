@@ -49,3 +49,34 @@ values ('F5J4321', 'Наушники', 5, 2000);
 
 insert into transaction_type (id, name) values (nextval('trans_type_seq'), 'buy');
 insert into transaction_type (id, name) values (nextval('trans_type_seq'), 'sell');
+
+--create function trg_set_new_product_quantity() returns trigger LANGUAGE plpgsql as
+--$$ BEGIN
+--   IF (SELECT c.name FROM "transaction_type" c WHERE c.id = NEW."transaction_type_id") == "buy" THEN
+--      update product set quantity = quantity + 1 where id = NEW."product_id";
+--   END IF;
+--   IF (SELECT c.name FROM "transaction_type" c WHERE c.id = NEW."transaction_type_id") == "sell" THEN
+--      update product set quantity = quantity - 1 where id = NEW."product_id";
+--   END IF;
+--   RETURN NEW;
+--END;
+--$$
+
+--CREATE OR REPLACE FUNCTION public.trg_set_new_product_quantity()
+--  RETURNS trigger LANGUAGE plpgsql VOLATILE COST 100 AS
+--BEGIN
+--&&
+--   IF (SELECT c.name FROM transaction_type c WHERE c.id = NEW.transaction_type_id) ~ 'buy' THEN
+--      update product set quantity = quantity + 1 where id = NEW.product_id;
+--   END IF;
+--   IF (SELECT c.name FROM transaction_type c WHERE c.id = NEW.transaction_type_id) ~ 'sell' THEN
+--      update product set quantity = quantity - 1 where id = NEW.product_id;
+--   END IF;
+--   RETURN NEW;
+--END;
+--&&;
+--
+--
+--CREATE TRIGGER change_product_quantity
+--BEFORE INSERT ON transaction
+--FOR EACH ROW EXECUTE PROCEDURE trg_set_new_product_quantity();

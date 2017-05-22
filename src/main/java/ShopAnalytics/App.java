@@ -15,9 +15,9 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableJpaRepositories("ShopAnalytics.Repository")
+@EnableJpaRepositories("ShopAnalytics.repository")
 public class App {
-    public final static String ROOT_PATH = "diary-api";
+    public final static String ROOT_PATH = "shop-management";
 
 
     public static void main(String[] args) {
