@@ -24,15 +24,15 @@ public class ShopOperationsController {
     private OperationHandler operationHandler = new OperationHandler();
 
 
-    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/sell/{productId}&{customerINN}&{userId}")
+    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/sell")
     @ApiOperation(value = "Sell product to customer by INN")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> sellProduct(@PathVariable("productId") Long productId,
-                            @PathVariable("customerINN") Long inn,
-                            @PathVariable("userId") long userId) {
+    public ResponseEntity<?> sellProduct(@RequestParam(name = "productId") Long productId,
+                            @RequestParam(name = "customerINN") Long inn,
+                            @RequestParam(name = "userId") long userId) {
         try {
             operationHandler.sellProduct(productId, inn, userId);
             return new ResponseEntity(HttpStatus.OK);
@@ -42,15 +42,15 @@ public class ShopOperationsController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/purchase/{productId}&{customerINN}&{userId}")
+    @RequestMapping(method = RequestMethod.GET, path=BASE_PATH + "/purchase")
     @ApiOperation(value = "Purchase product from business partner")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> purchaseProduct(@PathVariable("productId") Long productId,
-                                         @PathVariable("customerINN") Long inn,
-                                         @PathVariable("userId") long userId) {
+    public ResponseEntity<?> purchaseProduct(@RequestParam("productId") Long productId,
+                                         @RequestParam("customerINN") Long inn,
+                                         @RequestParam("userId") long userId) {
         try{
             operationHandler.purchaseProduct(productId, inn, userId);
             return new ResponseEntity(HttpStatus.OK);

@@ -12,5 +12,7 @@ import java.util.List;
  */
 @Transactional
 public interface TransactionDao extends CrudRepository<Transaction, Long> {
+
     List<Transaction> findAllByProduct(Product product);
+
 }

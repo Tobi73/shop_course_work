@@ -4,17 +4,13 @@ import ShopAnalytics.model.*;
 import ShopAnalytics.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 
-import javax.jws.soap.SOAPBinding;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 /**
@@ -38,28 +34,33 @@ public class InfrastructureHandler {
     private UserDao users;
     @Autowired
     private RoleDao roles;
-    private Map<Predicate, Consumer> functions;
+    private Map<Predicate, BiConsumer> functions;
 
     public InfrastructureHandler(){
         functions = new HashMap<>();
         Predicate<?> roleType = x -> x instanceof Role;
-        Consumer<Role> roleInsert = (Role y) -> roles.save(y);
+        BiConsumer<Role, Long> roleInsert = (Role y, Long id) -> roles.save(y);
         functions.put(roleType, roleInsert);
 
         Predicate<?> prodType = x -> x instanceof Product;
-        Consumer<Product> prodInsert = (Product y) -> products.save(y);
+        BiConsumer<Product, Long> prodInsert = (Product y, Long id) -> products.save(y);
         functions.put(prodType, prodInsert);
 
         Predicate<?> userType = x -> x instanceof User;
-        Consumer<User> userInsert = (User y) -> users.save(y);
+        BiConsumer<User, Long> userInsert = (User y, Long id) -> {
+            if(id != null){
+                y.setRole(roles.findOne(id));
+            }
+            users.save(y);
+        };
         functions.put(userType, userInsert);
 
         Predicate<?> businessEntityType = x -> x instanceof BusinessEntity;
-        Consumer<BusinessEntity> businessEntityInsert = (BusinessEntity y) -> businessEntities.save(y);
+        BiConsumer<BusinessEntity, Long> businessEntityInsert = (BusinessEntity y, Long id) -> businessEntities.save(y);
         functions.put(businessEntityType, businessEntityInsert);
 
         Predicate<?> transTypeType = x -> x instanceof TransactionType;
-        Consumer<TransactionType> transactionTypeInsert = (TransactionType y) -> transactionTypes.save(y);
+        BiConsumer<TransactionType, Long> transactionTypeInsert = (TransactionType y, Long id) -> transactionTypes.save(y);
         functions.put(transTypeType, transactionTypeInsert);
     }
 
@@ -137,10 +138,10 @@ public class InfrastructureHandler {
 
     }
 
-    public <T> void insertNewObject(T newObject){
+    public <T> void insertNewObject(T newObject, Long id){
         for(Predicate predicate: functions.keySet()){
             if(predicate.test(newObject)){
-                functions.get(predicate).accept(newObject);
+                functions.get(predicate).accept(newObject, id);
                 return;
             }
         }

@@ -1,7 +1,6 @@
 package ShopAnalytics.controller;
 
 import ShopAnalytics.App;
-
 import ShopAnalytics.bll.InfrastructureHandler;
 import ShopAnalytics.model.*;
 import io.swagger.annotations.Api;
@@ -10,7 +9,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +53,7 @@ public class InfrastructureController {
     })
     public ResponseEntity<?> insertProduct(@RequestBody Product product) {
         try{
-            handler.insertNewObject(product);
+            handler.insertNewObject(product, null);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -71,7 +69,7 @@ public class InfrastructureController {
     })
     public ResponseEntity<?> insertTransactionType(@RequestBody TransactionType transactionType) {
         try{
-            handler.insertNewObject(transactionType);
+            handler.insertNewObject(transactionType, null);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -87,7 +85,7 @@ public class InfrastructureController {
     })
     public ResponseEntity<?> insertRole(@RequestBody Role role) {
         try{
-            handler.insertNewObject(role);
+            handler.insertNewObject(role, null);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -101,9 +99,10 @@ public class InfrastructureController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> insertUser(@RequestBody User user) {
+    public ResponseEntity<?> insertUser(@RequestBody User user,
+                                        @RequestParam(name = "role", required = false) Long roleId) {
         try{
-            handler.insertNewObject(user);
+            handler.insertNewObject(user, roleId);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -119,7 +118,7 @@ public class InfrastructureController {
     })
     public ResponseEntity<?> insertBusinessEntity(@RequestBody BusinessEntity businessEntity) {
         try{
-            handler.insertNewObject(businessEntity);
+            handler.insertNewObject(businessEntity, null);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());

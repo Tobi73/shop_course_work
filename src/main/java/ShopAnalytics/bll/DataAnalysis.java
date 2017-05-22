@@ -5,14 +5,17 @@ import ShopAnalytics.repository.ProductDao;
 import ShopAnalytics.repository.TransactionDao;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by gman0_000 on 14.05.2017.
  */
+@Controller
+@Transactional
 public class DataAnalysis {
 
     @Autowired
@@ -44,7 +47,45 @@ public class DataAnalysis {
             }
         }
         return null;
+    }
 
+    @Transactional
+    public List<BusinessPartnerNode> buildBusinessPartnerGraphRelation(Long productId) throws Exception {
+        Product foundProduct = products.findOne(productId);
+        if(foundProduct == null){
+            throw new Exception("Could not find product");
+        }
+        List<Transaction> foundTransaction = transactions.findAllByProduct(foundProduct);
+        if(foundTransaction == null || foundTransaction.size() == 0){
+            throw new Exception("Could not find related transaction");
+        }
+        List<CompanyToProduct> compToProd = Collections.emptyList();
+        for(Transaction transaction: foundTransaction){
+            BusinessEntity relatedPartner = transaction.getBusinessEntity();
+            for(CompanyToProduct ctp : compToProd){
+                if(ctp.getCompanyId().equals(relatedPartner.getInn())){
+                    ctp.setAmountOfProduct(ctp.getAmountOfProduct() + 1);
+                    ctp.setTotalPrice(ctp.getTotalPrice() + transaction.getPrice());
+                    continue;
+                }
+                compToProd.add(new CompanyToProduct(relatedPartner.getInn(), relatedPartner.getName()));
+            }
+        }
+        List<BusinessPartnerNode> partners = Collections.emptyList();
+        for(CompanyToProduct ctp : compToProd){
+            BusinessPartnerNode partnerNode = new BusinessPartnerNode(ctp.companyName, ctp.companyId);
+            double productAveragePrice = ctp.getTotalPrice() / ctp.getAmountOfProduct();
+            for(CompanyToProduct insideCtp: compToProd){
+                if(ctp.equals(insideCtp)){
+                    continue;
+                }
+                double productAveragePriceToCompare = insideCtp.getTotalPrice() / insideCtp.getAmountOfProduct();
+                double relation = productAveragePrice / productAveragePriceToCompare;
+                partnerNode.addRelation(new Pair<>(insideCtp.companyId, relation));
+            }
+            partners.add(partnerNode);
+        }
+        return partners;
     }
 
     public Pair<BusinessEntity, Integer> determineBestBusinessPartner(List<Transaction> transactions){
@@ -57,6 +98,53 @@ public class DataAnalysis {
             }
         }
         return new Pair<>(bestPartner, minPrice);
+    }
+
+    private class CompanyToProduct{
+
+        private Long companyId;
+        private int totalPrice;
+        private int amountOfProduct;
+        private String companyName;
+
+        public CompanyToProduct(Long companyId, String companyName){
+            this.companyId = companyId;
+            this.totalPrice = 0;
+            this.amountOfProduct = 0;
+            this.companyName = companyName;
+        }
+
+        public int getTotalPrice() {
+            return totalPrice;
+        }
+
+        public void setTotalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+        }
+
+        public int getAmountOfProduct() {
+            return amountOfProduct;
+        }
+
+        public void setAmountOfProduct(int amountOfProduct) {
+            this.amountOfProduct = amountOfProduct;
+        }
+
+        public String getCompanyName() {
+            return companyName;
+        }
+
+        public void setCompanyName(String companyName) {
+            this.companyName = companyName;
+        }
+
+        public Long getCompanyId() {
+            return companyId;
+        }
+
+        public void setCompanyId(Long companyId) {
+            this.companyId = companyId;
+        }
     }
 
 
