@@ -50,9 +50,10 @@ public class ShopOperationsController {
     })
     public ResponseEntity<?> purchaseProduct(@RequestParam("productId") Long productId,
                                          @RequestParam("customerINN") Long inn,
-                                         @RequestParam("userId") long userId) {
+                                         @RequestParam("userId") long userId,
+                                             @RequestParam("price") int price) {
         try{
-            operationHandler.purchaseProduct(productId, inn, userId);
+            operationHandler.purchaseProduct(productId, inn, userId, price);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());

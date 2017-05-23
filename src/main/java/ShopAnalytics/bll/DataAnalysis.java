@@ -4,10 +4,12 @@ import ShopAnalytics.model.*;
 import ShopAnalytics.repository.ProductDao;
 import ShopAnalytics.repository.TransactionDao;
 import javafx.util.Pair;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,41 +53,48 @@ public class DataAnalysis {
 
     @Transactional
     public List<BusinessPartnerNode> buildBusinessPartnerGraphRelation(Long productId) throws Exception {
-        Product foundProduct = products.findOne(productId);
-        if(foundProduct == null){
-            throw new Exception("Could not find product");
-        }
-        List<Transaction> foundTransaction = transactions.findAllByProduct(foundProduct);
-        if(foundTransaction == null || foundTransaction.size() == 0){
-            throw new Exception("Could not find related transaction");
-        }
-        List<CompanyToProduct> compToProd = Collections.emptyList();
-        for(Transaction transaction: foundTransaction){
-            BusinessEntity relatedPartner = transaction.getBusinessEntity();
-            for(CompanyToProduct ctp : compToProd){
-                if(ctp.getCompanyId().equals(relatedPartner.getInn())){
-                    ctp.setAmountOfProduct(ctp.getAmountOfProduct() + 1);
-                    ctp.setTotalPrice(ctp.getTotalPrice() + transaction.getPrice());
-                    continue;
-                }
-                compToProd.add(new CompanyToProduct(relatedPartner.getInn(), relatedPartner.getName()));
-            }
-        }
-        List<BusinessPartnerNode> partners = Collections.emptyList();
-        for(CompanyToProduct ctp : compToProd){
-            BusinessPartnerNode partnerNode = new BusinessPartnerNode(ctp.companyName, ctp.companyId);
-            double productAveragePrice = ctp.getTotalPrice() / ctp.getAmountOfProduct();
-            for(CompanyToProduct insideCtp: compToProd){
-                if(ctp.equals(insideCtp)){
-                    continue;
-                }
-                double productAveragePriceToCompare = insideCtp.getTotalPrice() / insideCtp.getAmountOfProduct();
-                double relation = productAveragePrice / productAveragePriceToCompare;
-                partnerNode.addRelation(new Pair<>(insideCtp.companyId, relation));
-            }
-            partners.add(partnerNode);
-        }
-        return partners;
+        List<Object[]> rawData = transactions.findToBuildGraph();
+        List<RetailerInfo> retailerInfos = mapRetailerInfo(rawData);
+
+//        Product foundProduct = products.findOne(productId);
+//        if(foundProduct == null){
+//            throw new Exception("Could not find product");
+//        }
+//        List<Transaction> foundTransaction = transactions.findAllByProduct(foundProduct);
+//        if(foundTransaction == null || foundTransaction.size() == 0){
+//            throw new Exception("Could not find related transaction");
+//        }
+//        List<CompanyToProduct> compToProd = Collections.emptyList();
+//        for(Transaction transaction: foundTransaction){
+//            if(!"buy".equals(transaction.getTransactionType().getName())){
+//                continue;
+//            }
+//            BusinessEntity relatedPartner = transaction.getBusinessEntity();
+//            for(CompanyToProduct ctp : compToProd){
+//                if(ctp.getCompanyId().equals(relatedPartner.getInn())){
+//                    ctp.setAmountOfProduct(ctp.getAmountOfProduct() + 1);
+//                    ctp.setTotalPrice(ctp.getTotalPrice() + transaction.getPrice());
+//                    continue;
+//                }
+//                compToProd.add(new CompanyToProduct(relatedPartner.getInn(), relatedPartner.getName()));
+//            }
+//        }
+//        List<BusinessPartnerNode> partners = Collections.emptyList();
+//        for(CompanyToProduct ctp : compToProd){
+//            BusinessPartnerNode partnerNode = new BusinessPartnerNode(ctp.companyName, ctp.companyId);
+//            double productAveragePrice = ctp.getTotalPrice() / ctp.getAmountOfProduct();
+//            for(CompanyToProduct insideCtp: compToProd){
+//                if(ctp.equals(insideCtp)){
+//                    continue;
+//                }
+//                double productAveragePriceToCompare = insideCtp.getTotalPrice() / insideCtp.getAmountOfProduct();
+//                double relation = productAveragePrice / productAveragePriceToCompare;
+//                partnerNode.addRelation(new Pair<>(insideCtp.companyId, relation));
+//            }
+//            partners.add(partnerNode);
+//        }
+//        return partners;
+        return null;
     }
 
     public Pair<BusinessEntity, Integer> determineBestBusinessPartner(List<Transaction> transactions){
@@ -98,6 +107,30 @@ public class DataAnalysis {
             }
         }
         return new Pair<>(bestPartner, minPrice);
+    }
+
+    public List<RetailerInfo> mapRetailerInfo(List<Object[]> rawData){
+        List<RetailerInfo> retailerInfos = new ArrayList<>();
+        for(Object[] rawItem : rawData){
+            retailerInfos.add(new RetailerInfo((long)rawItem[0],(long)rawItem[1],(long)rawItem[2]));
+        }
+        return retailerInfos;
+    }
+
+    @Data
+    private class RetailerInfo{
+
+        private long business_entity_inn;
+        private long sum;
+        private long count;
+
+        public RetailerInfo() {}
+
+        public RetailerInfo(long business_entity_inn, long sum, long count){
+            this.business_entity_inn = business_entity_inn;
+            this.sum = sum;
+            this.count = count;
+        }
     }
 
     private class CompanyToProduct{
