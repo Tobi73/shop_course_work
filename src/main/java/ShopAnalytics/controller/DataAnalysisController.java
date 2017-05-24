@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * Created by andreyzaytsev on 22.05.17.
  */
@@ -35,7 +33,7 @@ public class DataAnalysisController {
     })
     public ResponseEntity<?> getPartnersGraph(@RequestParam(name = "productId") Long productId){
         try{
-            return new ResponseEntity<List<BusinessPartnerNode>>(analysis.buildBusinessPartnerGraphRelation(productId), HttpStatus.OK);
+            return new ResponseEntity<>(analysis.buildBusinessPartnerGraphRelation(productId), HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e.getMessage());
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);

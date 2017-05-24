@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -55,6 +54,26 @@ public class DataAnalysis {
     public List<BusinessPartnerNode> buildBusinessPartnerGraphRelation(Long productId) throws Exception {
         List<Object[]> rawData = transactions.findToBuildGraph();
         List<RetailerInfo> retailerInfos = mapRetailerInfo(rawData);
+        List<BusinessPartnerNode> partnerNodes = new ArrayList<>();
+        for(RetailerInfo info : retailerInfos){
+            BusinessPartnerNode partnerNode = new BusinessPartnerNode(info.getCompanyName(), info.getBusiness_entity_inn());
+            for(RetailerInfo other: retailerInfos){
+                if(info.getBusiness_entity_inn() == other.getBusiness_entity_inn()){
+                    continue;
+                }
+                double companyAveragePrice = info.getSum() / info.getCount();
+                double otherCompanyAveragePrice = other.getSum() / other.getCount();
+                if(companyAveragePrice < otherCompanyAveragePrice){
+                    double advantage = 100 - companyAveragePrice / (otherCompanyAveragePrice / 100);
+                    partnerNode.addRelation(new Pair<>(other.getBusiness_entity_inn(),
+                            advantage));
+                }
+            }
+            partnerNodes.add(partnerNode);
+        }
+//        for(RetailerInfo info: retailerInfos){
+//            info.
+//        }
 
 //        Product foundProduct = products.findOne(productId);
 //        if(foundProduct == null){
@@ -94,7 +113,7 @@ public class DataAnalysis {
 //            partners.add(partnerNode);
 //        }
 //        return partners;
-        return null;
+        return partnerNodes;
     }
 
     public Pair<BusinessEntity, Integer> determineBestBusinessPartner(List<Transaction> transactions){
@@ -112,7 +131,8 @@ public class DataAnalysis {
     public List<RetailerInfo> mapRetailerInfo(List<Object[]> rawData){
         List<RetailerInfo> retailerInfos = new ArrayList<>();
         for(Object[] rawItem : rawData){
-            retailerInfos.add(new RetailerInfo((long)rawItem[0],(long)rawItem[1],(long)rawItem[2]));
+            retailerInfos.add(new RetailerInfo((String) rawItem[1],(long)rawItem[0],
+                    (long)rawItem[2],(long)rawItem[3]));
         }
         return retailerInfos;
     }
@@ -123,13 +143,15 @@ public class DataAnalysis {
         private long business_entity_inn;
         private long sum;
         private long count;
+        private String companyName;
 
         public RetailerInfo() {}
 
-        public RetailerInfo(long business_entity_inn, long sum, long count){
+        public RetailerInfo(String companyName, long business_entity_inn, long sum, long count){
             this.business_entity_inn = business_entity_inn;
             this.sum = sum;
             this.count = count;
+            this.companyName = companyName;
         }
     }
 
