@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiPredicate;
 
 /**
  * Created by gman0_000 on 14.05.2017.
@@ -23,8 +25,6 @@ public class DataAnalysis {
     private TransactionDao transactions;
     @Autowired
     private ProductDao products;
-
-
 
     @Transactional
     public AnalyticsData determineBestPurchaseOption(String productName, int price, PriceCriteria priceCriteria){
@@ -52,7 +52,7 @@ public class DataAnalysis {
 
     @Transactional
     public List<BusinessPartnerNode> buildBusinessPartnerGraphRelation(Long productId) throws Exception {
-        List<Object[]> rawData = transactions.findToBuildGraph();
+        List<Object[]> rawData = transactions.findToBuildGraph(productId);
         List<RetailerInfo> retailerInfos = mapRetailerInfo(rawData);
         List<BusinessPartnerNode> partnerNodes = new ArrayList<>();
         for(RetailerInfo info : retailerInfos){
@@ -65,55 +65,71 @@ public class DataAnalysis {
                 double otherCompanyAveragePrice = other.getSum() / other.getCount();
                 if(companyAveragePrice < otherCompanyAveragePrice){
                     double advantage = 100 - companyAveragePrice / (otherCompanyAveragePrice / 100);
-                    partnerNode.addRelation(new Pair<>(other.getBusiness_entity_inn(),
+                    partnerNode.addRelation(new Pair<>(other.companyName,
                             advantage));
                 }
             }
             partnerNodes.add(partnerNode);
         }
-//        for(RetailerInfo info: retailerInfos){
-//            info.
-//        }
-
-//        Product foundProduct = products.findOne(productId);
-//        if(foundProduct == null){
-//            throw new Exception("Could not find product");
-//        }
-//        List<Transaction> foundTransaction = transactions.findAllByProduct(foundProduct);
-//        if(foundTransaction == null || foundTransaction.size() == 0){
-//            throw new Exception("Could not find related transaction");
-//        }
-//        List<CompanyToProduct> compToProd = Collections.emptyList();
-//        for(Transaction transaction: foundTransaction){
-//            if(!"buy".equals(transaction.getTransactionType().getName())){
-//                continue;
-//            }
-//            BusinessEntity relatedPartner = transaction.getBusinessEntity();
-//            for(CompanyToProduct ctp : compToProd){
-//                if(ctp.getCompanyId().equals(relatedPartner.getInn())){
-//                    ctp.setAmountOfProduct(ctp.getAmountOfProduct() + 1);
-//                    ctp.setTotalPrice(ctp.getTotalPrice() + transaction.getPrice());
-//                    continue;
-//                }
-//                compToProd.add(new CompanyToProduct(relatedPartner.getInn(), relatedPartner.getName()));
-//            }
-//        }
-//        List<BusinessPartnerNode> partners = Collections.emptyList();
-//        for(CompanyToProduct ctp : compToProd){
-//            BusinessPartnerNode partnerNode = new BusinessPartnerNode(ctp.companyName, ctp.companyId);
-//            double productAveragePrice = ctp.getTotalPrice() / ctp.getAmountOfProduct();
-//            for(CompanyToProduct insideCtp: compToProd){
-//                if(ctp.equals(insideCtp)){
-//                    continue;
-//                }
-//                double productAveragePriceToCompare = insideCtp.getTotalPrice() / insideCtp.getAmountOfProduct();
-//                double relation = productAveragePrice / productAveragePriceToCompare;
-//                partnerNode.addRelation(new Pair<>(insideCtp.companyId, relation));
-//            }
-//            partners.add(partnerNode);
-//        }
-//        return partners;
         return partnerNodes;
+    }
+
+    @Transactional
+    public List<Transaction> selectTransactionByRule(TransactionSelectionRule rule) throws Exception {
+        List<Transaction> allTransactions = (List<Transaction>) transactions.findAll();
+        List<Transaction> selectedTransactions = new ArrayList<>();
+        for(Transaction transaction : allTransactions){
+            if(isValid(rule, transaction)) selectedTransactions.add(transaction);
+        }
+        return selectedTransactions;
+    }
+
+    public boolean isValid(TransactionSelectionRule rule, Transaction transaction) throws Exception {
+        for(Rule ruleUnit : rule.getRules()){
+            if(!isPassingRule(ruleUnit, transaction)) return false;
+        }
+        return true;
+    }
+
+    public boolean isPassingRule(Rule rule, Transaction transaction) throws Exception {
+        switch (rule.getOperation()){
+            case "=":
+                if(rule.getStringValue() == null || rule.getStringValue().length() == 0){
+                    BiPredicate<Integer, Integer> equalPredicate = (x, y) -> x.equals(y);
+                    return passRule(equalPredicate, rule.getNumValues(), rule.getField(), transaction);
+                }
+                BiPredicate<String, String> stringEqualPredicate = (x, y) -> x.equals(y);
+                return passRule(stringEqualPredicate, rule.getStringValue(), rule.getField(), transaction);
+            case ">":
+                BiPredicate<Integer, Integer> greaterPredicate = (x, y) -> x > y;
+                return passRule(greaterPredicate, rule.getNumValues(), rule.getField(), transaction);
+            case "<":
+                BiPredicate<Integer, Integer> lessPredicate = (x, y) -> x < y;
+                return passRule(lessPredicate, rule.getNumValues(), rule.getField(), transaction);
+            case ">=":
+                BiPredicate<Integer, Integer> greaterEqualPredicate = (x, y) -> y >= y;
+                return passRule(greaterEqualPredicate, rule.getNumValues(), rule.getField(), transaction);
+            case "<=":
+                BiPredicate<Integer, Integer> lessEqualPredicate = (x, y) -> y <= y;
+                return passRule(lessEqualPredicate, rule.getNumValues(), rule.getField(), transaction);
+            default:
+                throw new Exception("Wrong operation");
+        }
+    }
+
+    public <T> boolean passRule(BiPredicate predicate, T rule, String field, Transaction transaction) throws Exception {
+        switch (field){
+            case "businessEntity":
+                return predicate.test(transaction.getBusinessEntity().getName(), rule);
+            case "product":
+                return predicate.test(transaction.getProduct().getName(), rule);
+            case "price":
+                return predicate.test(transaction.getPrice(), rule);
+            case "transactionType":
+                return predicate.test(transaction.getTransactionType().getName(), rule);
+            default:
+                throw new Exception("Wrong field");
+        }
     }
 
     public Pair<BusinessEntity, Integer> determineBestBusinessPartner(List<Transaction> transactions){
@@ -138,7 +154,7 @@ public class DataAnalysis {
     }
 
     @Data
-    private class RetailerInfo{
+    private class RetailerInfo implements Serializable {
 
         private long business_entity_inn;
         private long sum;

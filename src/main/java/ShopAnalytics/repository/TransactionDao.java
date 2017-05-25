@@ -17,7 +17,7 @@ public interface TransactionDao extends CrudRepository<Transaction, Long> {
     List<Transaction> findAllByProduct(Product product);
 
     @Query("select t.businessEntity.inn, t.businessEntity.name, sum(t.price), count(t.id)\n" +
-            " from Transaction t group by t.businessEntity.inn, t.businessEntity.name")
-    List<Object[]> findToBuildGraph();
+            " from Transaction t where t.product.id=?1 group by t.businessEntity.inn, t.businessEntity.name")
+    List<Object[]> findToBuildGraph(long productId);
 
 }

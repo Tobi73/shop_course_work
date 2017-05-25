@@ -15,7 +15,7 @@ public class BusinessPartnerNode {
 
     private String companyName;
     private Long companyId;
-    private List<Pair<Long, Double>> relations;
+    private List<Pair<String, Double>> relations;
 
     public BusinessPartnerNode(String companyName, Long companyId){
         this.companyName = companyName;
@@ -23,7 +23,7 @@ public class BusinessPartnerNode {
         this.relations = new ArrayList<>();
     }
 
-    public void addRelation(Pair<Long, Double> relation){
+    public void addRelation(Pair<String, Double> relation){
         this.relations.add(relation);
     }
 }
