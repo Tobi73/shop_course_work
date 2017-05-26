@@ -1,8 +1,6 @@
 package ShopAnalytics.model;
 
-import javafx.util.Pair;
 import lombok.Data;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,13 +12,13 @@ import java.util.List;
 public class PriceCriteria {
 
     private List<ShopAnalytics.model.Pair> priceCriteria;
-    private Integer defaultPrice;
+    private Integer defaultQuantity;
 
     public PriceCriteria() {};
 
-    public PriceCriteria(List<ShopAnalytics.model.Pair> priceCriteria, Integer defaultPrice){
+    public PriceCriteria(List<ShopAnalytics.model.Pair> priceCriteria, Integer defaultQuantity){
         this.priceCriteria = priceCriteria;
-        this.defaultPrice = defaultPrice;
+        this.defaultQuantity = defaultQuantity;
     }
 
     public boolean isPassingCriteria(int price){

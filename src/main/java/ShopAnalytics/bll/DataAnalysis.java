@@ -32,19 +32,20 @@ public class DataAnalysis {
         List<Transaction> foundTransactions = transactions.findAllByProduct(foundProduct);
         if(foundProduct == null || foundTransactions.size() == 0){
             if(priceCriteria.isPassingCriteria(price)){
-                return new AnalyticsData(null, priceCriteria.foundQuantity(price), foundProduct);
+                return new AnalyticsData(null, priceCriteria.foundQuantity(price), foundProduct, price);
             }
             if(!priceCriteria.isPassingCriteria(price)){
-                return new AnalyticsData(null, priceCriteria.getDefaultPrice(), foundProduct);
+                return new AnalyticsData(null, priceCriteria.getDefaultQuantity(), foundProduct);
             }
         }
         if(foundProduct != null){
             Pair<BusinessEntity, Integer> bestOption = determineBestBusinessPartner(foundTransactions);
             if(priceCriteria.isPassingCriteria(bestOption.getValue())){
-                return new AnalyticsData(bestOption.getKey(), priceCriteria.foundQuantity(bestOption.getValue()), foundProduct);
+                return new AnalyticsData(bestOption.getKey(),
+                        priceCriteria.foundQuantity(bestOption.getValue()), foundProduct, bestOption.getValue());
             }
             if(!priceCriteria.isPassingCriteria(bestOption.getValue())){
-                return new AnalyticsData(null, priceCriteria.getDefaultPrice(), foundProduct);
+                return new AnalyticsData(null, priceCriteria.getDefaultQuantity(), foundProduct);
             }
         }
         return null;
@@ -168,53 +169,6 @@ public class DataAnalysis {
             this.sum = sum;
             this.count = count;
             this.companyName = companyName;
-        }
-    }
-
-    private class CompanyToProduct{
-
-        private Long companyId;
-        private int totalPrice;
-        private int amountOfProduct;
-        private String companyName;
-
-        public CompanyToProduct(Long companyId, String companyName){
-            this.companyId = companyId;
-            this.totalPrice = 0;
-            this.amountOfProduct = 0;
-            this.companyName = companyName;
-        }
-
-        public int getTotalPrice() {
-            return totalPrice;
-        }
-
-        public void setTotalPrice(int totalPrice) {
-            this.totalPrice = totalPrice;
-        }
-
-        public int getAmountOfProduct() {
-            return amountOfProduct;
-        }
-
-        public void setAmountOfProduct(int amountOfProduct) {
-            this.amountOfProduct = amountOfProduct;
-        }
-
-        public String getCompanyName() {
-            return companyName;
-        }
-
-        public void setCompanyName(String companyName) {
-            this.companyName = companyName;
-        }
-
-        public Long getCompanyId() {
-            return companyId;
-        }
-
-        public void setCompanyId(Long companyId) {
-            this.companyId = companyId;
         }
     }
 

@@ -22,10 +22,19 @@ public class AnalyticsData {
 
     private int quantity;
 
+    private int price = -1;
+
     @OneToOne
     private Product product;
 
     public AnalyticsData() {}
+
+    public AnalyticsData(BusinessEntity businessEntity, int quantity, Product product, int price){
+        this.businessEntity = businessEntity;
+        this.quantity = quantity;
+        this.product = product;
+        this.price = price;
+    }
 
     public AnalyticsData(BusinessEntity businessEntity, int quantity, Product product){
         this.businessEntity = businessEntity;
