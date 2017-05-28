@@ -20,4 +20,8 @@ public interface TransactionDao extends CrudRepository<Transaction, Long> {
             " from Transaction t where t.product.id=?1 group by t.businessEntity.inn, t.businessEntity.name")
     List<Object[]> findToBuildGraph(long productId);
 
+    @Query("select month(t.date), sum(t.price) from Transaction t" +
+            " where t.product.id=?1 and t.transactionType.name=\'buy\' group by month(t.date)")
+    List<Object[]> sortByMonth(long productId);
+
 }

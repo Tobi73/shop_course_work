@@ -177,7 +177,7 @@ databaseChangeLog:
             type: INT
         - column:
             constraints:
-              nullable: false
+              nullable: true
             name: business_entity_inn
             type: BIGINT
         - column:

@@ -24,7 +24,6 @@ public class Transaction {
     @NotNull
     private int price;
 
-    @NotNull
     @ManyToOne
     private BusinessEntity businessEntity;
 

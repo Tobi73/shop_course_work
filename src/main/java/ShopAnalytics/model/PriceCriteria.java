@@ -22,7 +22,7 @@ public class PriceCriteria {
     }
 
     public boolean isPassingCriteria(int price){
-        for(ShopAnalytics.model.Pair priceCriteriaUnit : priceCriteria){
+        for(ShopAnalytics.model.Pair<Integer, Integer> priceCriteriaUnit : priceCriteria){
             if(price < priceCriteriaUnit.getKey()){
                 return true;
             }
@@ -31,7 +31,7 @@ public class PriceCriteria {
     }
 
     public int foundQuantity(int price){
-        for(ShopAnalytics.model.Pair priceCriteriaUnit : priceCriteria){
+        for(ShopAnalytics.model.Pair<Integer, Integer> priceCriteriaUnit : priceCriteria){
             if(price < priceCriteriaUnit.getKey()){
                 return priceCriteriaUnit.getValue();
             }

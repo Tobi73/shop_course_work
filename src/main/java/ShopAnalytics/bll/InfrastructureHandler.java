@@ -109,15 +109,15 @@ public class InfrastructureHandler {
     }
 
     @Transactional
-    public Boolean authenticate(String username, String password){
+    public long authenticate(String username, String password){
         User foundUser = users.findByLogin(username);
         if(foundUser == null){
-            return false;
+            return -1;
         }
         if(!foundUser.getPassword().equals(password)){
-            return false;
+            return -1;
         }
-        return true;
+        return foundUser.getId();
     }
 
     private class ResponseBody<T>{
