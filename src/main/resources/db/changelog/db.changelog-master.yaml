@@ -1,36 +1,42 @@
 databaseChangeLog:
 - changeSet:
     id: 1495228812282-1
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createSequence:
         sequenceName: analytics_seq
 - changeSet:
     id: 1495228812282-2
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createSequence:
         sequenceName: role_seq
 - changeSet:
     id: 1495228812282-3
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createSequence:
         sequenceName: trans_seq
 - changeSet:
     id: 1495228812282-4
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createSequence:
         sequenceName: trans_type_seq
 - changeSet:
     id: 1495228812282-5
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createSequence:
         sequenceName: user_seq
 - changeSet:
     id: 1495228812282-6
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createTable:
@@ -54,6 +60,7 @@ databaseChangeLog:
         tableName: analytics_data
 - changeSet:
     id: 1495228812282-7
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createTable:
@@ -85,6 +92,7 @@ databaseChangeLog:
         tableName: business_entity
 - changeSet:
     id: 1495228812282-8
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createTable:
@@ -112,6 +120,7 @@ databaseChangeLog:
         tableName: product
 - changeSet:
     id: 1495228812282-9
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createTable:
@@ -129,6 +138,7 @@ databaseChangeLog:
         tableName: role
 - changeSet:
     id: 1495228812282-10
+    validCheckSum: ANY
     author: gman0_000 (generated)
     validCheckSum: ANY
     changes:
@@ -156,6 +166,7 @@ databaseChangeLog:
         tableName: shop_user
 - changeSet:
     id: 1495228812282-11
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createTable:
@@ -198,6 +209,7 @@ databaseChangeLog:
         tableName: transaction
 - changeSet:
     id: 1495228812282-12
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - createTable:
@@ -215,6 +227,7 @@ databaseChangeLog:
         tableName: transaction_type
 - changeSet:
     id: 1495228812282-13
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -223,6 +236,7 @@ databaseChangeLog:
         tableName: analytics_data
 - changeSet:
     id: 1495228812282-14
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -231,6 +245,7 @@ databaseChangeLog:
         tableName: business_entity
 - changeSet:
     id: 1495228812282-15
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -239,6 +254,7 @@ databaseChangeLog:
         tableName: product
 - changeSet:
     id: 1495228812282-16
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -247,6 +263,7 @@ databaseChangeLog:
         tableName: role
 - changeSet:
     id: 1495228812282-17
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -255,6 +272,7 @@ databaseChangeLog:
         tableName: shop_user
 - changeSet:
     id: 1495228812282-18
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -263,6 +281,7 @@ databaseChangeLog:
         tableName: transaction
 - changeSet:
     id: 1495228812282-19
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addPrimaryKey:
@@ -271,6 +290,7 @@ databaseChangeLog:
         tableName: transaction_type
 - changeSet:
     id: 1495228812282-20
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addForeignKeyConstraint:
@@ -285,6 +305,7 @@ databaseChangeLog:
         referencedTableName: product
 - changeSet:
     id: 1495228812282-21
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addForeignKeyConstraint:
@@ -299,6 +320,7 @@ databaseChangeLog:
         referencedTableName: product
 - changeSet:
     id: 1495228812282-22
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addForeignKeyConstraint:
@@ -313,6 +335,7 @@ databaseChangeLog:
         referencedTableName: role
 - changeSet:
     id: 1495228812282-23
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addForeignKeyConstraint:
@@ -327,6 +350,7 @@ databaseChangeLog:
         referencedTableName: transaction_type
 - changeSet:
     id: 1495228812282-24
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addForeignKeyConstraint:
@@ -341,6 +365,7 @@ databaseChangeLog:
         referencedTableName: business_entity
 - changeSet:
     id: 1495228812282-25
+    validCheckSum: ANY
     author: gman0_000 (generated)
     changes:
     - addForeignKeyConstraint:

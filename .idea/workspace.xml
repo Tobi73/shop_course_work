@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="744d6798-46a6-46ea-a9e8-300df7ec3b74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/bll/InfrastructureHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/bll/InfrastructureHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/bll/OperationHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/bll/OperationHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/controller/ShopOperationsController.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/controller/ShopOperationsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/Pair.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/Pair.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/PriceCriteria.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/PriceCriteria.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/Transaction.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/Transaction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShopAnalytics/repository/TransactionDao.java" afterPath="$PROJECT_DIR$/src/main/java/ShopAnalytics/repository/TransactionDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -110,21 +102,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShopOperationsController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShopOperationsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ShopAnalytics/controller/ShopOperationsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="661">
+            <state relative-caret-position="151">
               <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="db.changelog-master.yaml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="db.changelog-master.yaml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="179" column="28" lean-forward="false" selection-start-line="179" selection-start-column="28" selection-end-line="179" selection-end-column="28" />
+            <state relative-caret-position="-51">
+              <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -204,11 +196,11 @@
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/bll/InfrastructureHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/Pair.java" />
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/PriceCriteria.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml" />
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/model/Transaction.java" />
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/repository/TransactionDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/bll/OperationHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/ShopAnalytics/controller/ShopOperationsController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml" />
       </list>
     </option>
   </component>
@@ -1138,14 +1130,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="179" column="28" lean-forward="false" selection-start-line="179" selection-start-column="28" selection-end-line="179" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ShopAnalytics/controller/InfrastructureController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -1212,8 +1196,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ShopAnalytics/controller/ShopOperationsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="661">
+        <state relative-caret-position="151">
           <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
           <folding />
         </state>
       </provider>
