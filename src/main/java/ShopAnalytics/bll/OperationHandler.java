@@ -75,13 +75,13 @@ public class OperationHandler {
     }
 
     @Transactional
-    public boolean sellProducts(List<Pair<Long, Integer>> productsToSell, long customerINN,
+    public boolean sellProducts(List<Pair<Long, Long>> productsToSell, long customerINN,
                                     long userId) throws Exception {
         try{
-            for(Pair<Long, Integer> product : productsToSell){
+            for(Pair<Long, Long> product : productsToSell){
                 if(!isPossibleToSell(product.getKey())) throw  new Exception("Insufficient amount of product");
             }
-            for(Pair<Long, Integer> product : productsToSell){
+            for(Pair<Long, Long> product : productsToSell){
                 for(int i = 0; i < product.getValue(); i++){
                     sellProduct(product.getKey(), customerINN, userId);
                 }

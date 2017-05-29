@@ -71,7 +71,7 @@ public class ShopOperationsController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public ResponseEntity<?> sellMultipleProduct(@RequestBody List<Pair<Long, Integer>> products,
+    public ResponseEntity<?> sellMultipleProduct(@RequestBody List<Pair<Long, Long>> products,
                                              @RequestParam("customerINN") Long inn,
                                              @RequestParam("userId") long userId) {
         try{
